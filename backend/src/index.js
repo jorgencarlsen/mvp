@@ -16,7 +16,7 @@ new GraphQLServer({
       typegen: __dirname + '/generated/nexus.ts',
     },
   }),
-  middlewares: [permissions],
+  //middlewares: [permissions],
   context: (request) => {
     return {
       ...request,

@@ -66,9 +66,9 @@ const Query = queryType({
     t.list.field('questionList', {
       type: 'Question',
       nullable: true,
-      args: { userId: intArg() }
+      args: { userId: intArg() },
       resolve: (parent, args, ctx) => {
-        return ctx.prisma.question.find({
+        return ctx.prisma.question.findMany({
           where: { userId: args.userId },
         })
       },

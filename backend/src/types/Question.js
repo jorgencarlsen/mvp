@@ -15,7 +15,7 @@ const Question = objectType({
     t.model.solution()
     t.model.timeSpent()
     t.model.createdAt()
-    t.model.upDatedAt()
+    t.model.updatedAt()
   },
 })
 

@@ -33,3 +33,9 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+frontend/.next/
+
+config.js
+
+*.env*

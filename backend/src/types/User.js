@@ -6,10 +6,10 @@ const User = objectType({
     t.model.id()
     t.model.name()
     t.model.email()
-    t.model.posts({ pagination: false })
+    t.model.post({ pagination: false })
     t.model.questions({ pagination: false })
     t.model.gitHubName()
-    t.model.solutionsRepo()
+    t.model.solutionRepo()
   },
 })
 

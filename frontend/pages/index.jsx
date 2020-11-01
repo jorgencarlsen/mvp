@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Page from '../components/Page';
 
 const Home = () => (
   <Link href='/test'>
