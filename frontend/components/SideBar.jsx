@@ -3,28 +3,60 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const SideBarContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  padding: 1.5rem;
-  padding-top: 50px;
+  padding-top: 20px;
   width: 200px;
   height: 100vh;
   background-color: ${({ theme }) => theme.base};
   -webkit-box-shadow: 4px 3px 14px 3px rgba(0,0,0,0.73);
   box-shadow: 1px 2px 10px 2px rgba(0,0,0,0.53);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const Title = styled.div`
+  width: 100%;
+  height: 30px;
+  padding: 2rem 1.2rem;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  color: ${({ theme }) => theme.seaGreen};
+`;
+
+const MenuItem = styled.div`
+  width: 100%;
+  height: 30px;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.surface}
+  }
 `;
 
 const SideBar = () => {
 
   return (
     <SideBarContainer>
-      <h1>Prep Track</h1>
+      <Title>
+        <h1>Prep Track</h1>
+      </Title>
       <Link href='/questions'>
-        <div>Questions</div>
+        <MenuItem>Questions</MenuItem>
       </Link>
       <Link href='/analytics'>
-        <div>Analytics</div>
+        <MenuItem>Analytics</MenuItem>
       </Link>
     </SideBarContainer>
   );

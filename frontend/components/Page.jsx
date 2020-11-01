@@ -11,7 +11,9 @@ const theme = {
   base: '#1F2023',
   overFlow: '#010101',
   maxWidth: '900px',
-  carbon: 'rgba(255,255,255,.6)'
+  carbon: 'rgba(255,255,255,.6)',
+  vibrantWhite: 'rgba(255,255,255,.9)',
+  seaGreen: 'rgba(54, 241, 205, .95)',
 }
 
 injectGlobal`
@@ -37,10 +39,11 @@ const PageWrapper = styled.div`
 `;
 
 const Inner = styled.div`
+  width: 80vw;
   max-width: ${props => props.theme.maxWidth};
   margin: 0 0 0 200px;
   padding: 2rem;
-  // background-color: blue;
+  //background-color: blue;
 `;
 
 class Page extends Component {
