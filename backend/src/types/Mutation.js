@@ -1,6 +1,6 @@
 const { compare, hash } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
-const { mutationType, stringArg, intArg } = require('@nexus/schema')
+const { mutationType, stringArg, intArg, booleanArg } = require('@nexus/schema')
 const { APP_SECRET, getUserId } = require('../utils')
 
 const Mutation = mutationType({
@@ -97,6 +97,43 @@ const Mutation = mutationType({
         })
       },
     })
+
+    t.field('createQuestion', {
+      type: 'Question',
+      args: {
+        title: stringArg(),
+        url: stringArg({ nullable: true }),
+        algorithm: stringArg({ list: true, nullable: true }),
+        dataStructure: stringArg({ list: true, nullable: true }),
+        solved: booleanArg({ nullable: true }),
+        difficulty: stringArg({ nullable: true }),
+        userDifficulty: stringArg({ nullable: true }),
+        notes: stringArg({ nullable: true }),
+        userSolution: stringArg({ nullable: true }),
+        solution: stringArg({ nullable: true }),
+        timeSpent: intArg({ nullable: true }),
+      },
+      resolve: (parent, { title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent }, ctx) => {
+        const userId = getUserId(ctx)
+        return ctx.prisma.question.create({
+          data: {
+            title,
+            user: { connect: { id: userId } },
+            url,
+            algorithm,
+            dataStructure,
+            solved,
+            difficulty,
+            userDifficulty,
+            notes,
+            userSolution,
+            solution,
+            timeSpent
+          },
+        })
+      },
+    })
+
   },
 })
 

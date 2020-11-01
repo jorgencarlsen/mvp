@@ -2,6 +2,49 @@
   "version": "0.3.14-fixed",
   "steps": [
     {
+      "tag": "CreateEnum",
+      "enum": "DataStructureType",
+      "values": [
+        "LINKED_LIST",
+        "STACK",
+        "QUEUE",
+        "HASH_TABLE",
+        "ARRAY",
+        "STRING",
+        "GRAPH",
+        "TREE",
+        "BINARY_TREE",
+        "BINARY_SEARCH_TREE",
+        "HEAP",
+        "TRIE"
+      ]
+    },
+    {
+      "tag": "CreateEnum",
+      "enum": "Difficulty",
+      "values": [
+        "VERY_EASY",
+        "EASY",
+        "MEDIUM",
+        "HARD",
+        "VERY_HARD",
+        "EXTREMELY_HARD"
+      ]
+    },
+    {
+      "tag": "CreateEnum",
+      "enum": "Algorithm",
+      "values": [
+        "DYNAMIC_PROGRAMMING",
+        "POINTERS",
+        "RECURSION",
+        "PATH_FINDING",
+        "GRAPH_TRAVERSAL",
+        "SORTING",
+        "SEARCHING"
+      ]
+    },
+    {
       "tag": "CreateSource",
       "source": "db"
     },
@@ -309,6 +352,38 @@
       "value": "now()"
     },
     {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "updatedAt"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "updatedAt"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "now()"
+    },
+    {
       "tag": "CreateModel",
       "model": "Question"
     },
@@ -425,94 +500,16 @@
     {
       "tag": "CreateField",
       "model": "Question",
-      "field": "style",
-      "type": "Style",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "style"
-        },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "style"
-        },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[styleId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "style"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
+      "field": "algorithm",
+      "type": "Algorithm",
+      "arity": "List"
     },
     {
       "tag": "CreateField",
       "model": "Question",
       "field": "dataStructure",
-      "type": "DataStructure",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "dataStructure"
-        },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "dataStructure"
-        },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[dataStructureId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "dataStructure"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
+      "type": "DataStructureType",
+      "arity": "List"
     },
     {
       "tag": "CreateField",
@@ -550,53 +547,21 @@
       "tag": "CreateField",
       "model": "Question",
       "field": "difficulty",
-      "type": "DifficultyLevel",
+      "type": "Difficulty",
       "arity": "Optional"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "difficulty"
-        },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "difficulty"
-        },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[difficultyLevelId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Question",
-          "field": "difficulty"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
     },
     {
       "tag": "CreateField",
       "model": "Question",
       "field": "userDifficulty",
-      "type": "Int",
+      "type": "Difficulty",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Question",
+      "field": "notes",
+      "type": "String",
       "arity": "Optional"
     },
     {
@@ -694,243 +659,6 @@
         },
         "directive": "updatedAt"
       }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Question",
-      "field": "styleId",
-      "type": "Int",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Question",
-      "field": "difficultyLevelId",
-      "type": "Int",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Question",
-      "field": "dataStructureId",
-      "type": "Int",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "DataStructure"
-    },
-    {
-      "tag": "CreateField",
-      "model": "DataStructure",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "DataStructure",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "DataStructure",
-          "field": "id"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "DataStructure",
-          "field": "id"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "DataStructure",
-      "field": "name",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "DataStructure",
-          "field": "name"
-        },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "DataStructure",
-      "field": "questions",
-      "type": "Question",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "DifficultyLevel"
-    },
-    {
-      "tag": "CreateField",
-      "model": "DifficultyLevel",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "DifficultyLevel",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "DifficultyLevel",
-          "field": "id"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "DifficultyLevel",
-          "field": "id"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "DifficultyLevel",
-      "field": "name",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "DifficultyLevel",
-          "field": "name"
-        },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "DifficultyLevel",
-      "field": "questions",
-      "type": "Question",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Style"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Style",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Style",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Style",
-          "field": "id"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Style",
-          "field": "id"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Style",
-      "field": "name",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Style",
-          "field": "name"
-        },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Style",
-      "field": "questions",
-      "type": "Question",
-      "arity": "List"
     }
   ]
 }

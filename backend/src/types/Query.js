@@ -63,7 +63,7 @@ const Query = queryType({
       },
     })
 
-    t.list.field('questionList', {
+    t.list.field('questions', {
       type: 'Question',
       nullable: true,
       args: { userId: intArg() },
