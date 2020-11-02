@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   grid-template-rows: 1fr;
   align-items: center;
   height: 30px;
-  //padding: 1.5rem 0;
 
   &:hover {
     background-color: ${({ theme }) => theme.base};

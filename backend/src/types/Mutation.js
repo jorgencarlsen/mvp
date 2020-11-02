@@ -114,7 +114,9 @@ const Mutation = mutationType({
         timeSpent: intArg({ nullable: true }),
       },
       resolve: (parent, { title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent }, ctx) => {
-        const userId = getUserId(ctx)
+        // const userId = getUserId(ctx)
+        // if (!userId) throw new Error('You need to be logged in to do that!');
+        const userId = 1;
         return ctx.prisma.question.create({
           data: {
             title,
@@ -132,6 +134,48 @@ const Mutation = mutationType({
           },
         })
       },
+    })
+
+    t.field('deleteQuestion', {
+      type: 'Question',
+      nullable: true,
+      args: { id: intArg() },
+      resolve: (parent, { id }, ctx) => {
+        return ctx.prisma.question.delete({
+          where: {
+            id,
+          },
+        })
+      },
+    })
+
+    t.field('updateQuestion', {
+      type: 'Question',
+      nullable: true,
+      args: {
+        id: intArg(),
+        title: stringArg({ nullable: true }),
+        url: stringArg({ nullable: true }),
+        algorithm: stringArg({ list: true, nullable: true }),
+        dataStructure: stringArg({ list: true, nullable: true }),
+        solved: booleanArg({ nullable: true }),
+        difficulty: stringArg({ nullable: true }),
+        userDifficulty: stringArg({ nullable: true }),
+        notes: stringArg({ nullable: true }),
+        userSolution: stringArg({ nullable: true }),
+        solution: stringArg({ nullable: true }),
+        timeSpent: intArg({ nullable: true }),
+      },
+      resolve: (parent, args, ctx) => {
+        const id = args.id;
+        delete args.id;
+        return ctx.prisma.question.update({
+          where: {
+            id,
+          },
+          data: args,
+        });
+      }
     })
 
   },

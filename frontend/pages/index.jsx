@@ -1,10 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import CreateQuestion from '../components/CreateQuestion';
 
 const Home = () => (
-  <Link href='/test'>
-    <a>Test</a>
-  </Link>
+  <CreateQuestion />
 );
 
 export default Home;
