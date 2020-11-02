@@ -41,6 +41,7 @@ const MenuItem = styled.div`
   align-items: flex-start;
 
   &:hover {
+    color: ${({ theme }) => theme.vibrantWhite};
     background-color: ${({ theme }) => theme.surface}
   }
 `;

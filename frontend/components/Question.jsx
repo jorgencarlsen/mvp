@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { dataStructureMap } from '../lib/dataStructures';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.surface};
@@ -23,14 +24,24 @@ const Item = styled.div`
   padding: 0 0 1rem 0;
 `;
 
-const Question = () => (
-  <Wrapper>
-    <Item>2 Sum</Item>
-    <Item>Array</Item>
-    <Item>False</Item>
-    <Item>Easy</Item>
-    <Item>10/31/20</Item>
-  </Wrapper>
-);
+const DataSpan = styled.span`
+
+`;
+
+const Question = ({ question }) => {
+  const { title, dataStructure, solved, difficulty, createdAt } = question;
+
+
+
+  return (
+    <Wrapper>
+      <Item>{title}</Item>
+      <Item>{dataStructure.map(data => `${dataStructureMap[data]} `)}</Item>
+      <Item>{solved}</Item>
+      <Item>{difficulty}</Item>
+      <Item>{createdAt}</Item>
+    </Wrapper>
+  )
+};
 
 export default Question;
