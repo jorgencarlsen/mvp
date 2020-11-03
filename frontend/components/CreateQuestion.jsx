@@ -8,6 +8,7 @@ import Select from './Select';
 import dataStructures from '../lib/dataStructures';
 import algorithms from '../lib/algorithms';
 import difficulties from '../lib/difficulties';
+import { GET_QUESTION_BY_ID_QUERY } from './QuestionDetails';
 
 const CREATE_QUESTION_MUTATION = gql`
   mutation CREATE_QUESTION_MUTATION (
@@ -17,6 +18,7 @@ const CREATE_QUESTION_MUTATION = gql`
     $dataStructure: [String]
     $solved: Boolean
     $difficulty: String
+    $userDifficulty: String
     $userSolution: String
     $notes: String
     $solution: String
@@ -29,6 +31,7 @@ const CREATE_QUESTION_MUTATION = gql`
       dataStructure: $dataStructure
       solved: $solved
       difficulty: $difficulty
+      userDifficulty: $userDifficulty
       userSolution: $userSolution
       notes: $notes
       solution: $solution
@@ -36,6 +39,43 @@ const CREATE_QUESTION_MUTATION = gql`
     ) {
       id
       title
+      userDifficulty
+    }
+  }
+`;
+
+const UPDATE_QUESTION_MUTATION = gql`
+  mutation UPDATE_QUESTION_MUTATION (
+    $id: Int!
+    $title: String!
+    $url: String!
+    $algorithm: [String]
+    $dataStructure: [String]
+    $solved: Boolean
+    $difficulty: String
+    $userDifficulty: String
+    $userSolution: String
+    $notes: String
+    $solution: String
+    $timeSpent: Int
+  ){
+    updateQuestion (
+      id: $id
+      title: $title
+      url: $url
+      algorithm: $algorithm
+      dataStructure: $dataStructure
+      solved: $solved
+      difficulty: $difficulty
+      userSolution: $userSolution
+      userDifficulty: $userDifficulty
+      notes: $notes
+      solution: $solution
+      timeSpent: $timeSpent
+    ) {
+      id
+      title
+      userDifficulty
     }
   }
 `;
@@ -79,10 +119,6 @@ const Form = styled.form`
   input {
     height: 40px;
     border-radius: 2px;
-  }
-
-  textarea {
-    //border-radius: 10px;
   }
 
   input,
@@ -175,6 +211,7 @@ const Form = styled.form`
 
 class CreateQuestion extends Component {
   state = {
+    id: null,
     title: '',
     url: '',
     algorithm: [],
@@ -190,8 +227,9 @@ class CreateQuestion extends Component {
 
   componentDidMount() {
     if (this.props.question) {
-      const { title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent } = this.props.question;
+      const { id, title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent } = this.props.question;
       this.setState({
+        id,
         title,
         url,
         algorithm,
@@ -281,15 +319,15 @@ class CreateQuestion extends Component {
 
     return (
       <Mutation
-        mutation={CREATE_QUESTION_MUTATION}
+        mutation={this.props.question ? UPDATE_QUESTION_MUTATION : CREATE_QUESTION_MUTATION}
         variables={this.state}
+        refetchQueries={[{ query: GET_QUESTION_BY_ID_QUERY, variables: { id: this.state.id } }]}
       >
-        {(createQuestion, { loading, error }) => (
+        {(upsertQuestion, { loading, error }) => (
           <Form
             onSubmit={async (e) => {
               e.preventDefault();
-              const response = await createQuestion();
-              console.log(response);
+              const response = await upsertQuestion();
               Router.push({ pathname: '/questions' });
             }}
           >
@@ -410,9 +448,12 @@ class CreateQuestion extends Component {
                   onChange={this.handleChange}
                 />
               </label>
-              <button type='submit'>
+              {!this.props.question && <button type='submit'>
                 Add Question
-              </button>
+              </button>}
+              {this.props.question && <button type='submit'>
+                Update Question
+              </button>}
             </fieldset>
           </Form>
         )

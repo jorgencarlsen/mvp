@@ -62,3 +62,4 @@ class QuestionDetails extends Component {
 
 
 export default QuestionDetails;
+export { GET_QUESTION_BY_ID_QUERY };
