@@ -2,18 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 const colors = {
-  VERY_EASY: 'rgba(97, 208, 149, .1)',
-  VERY_EASY_PLUS: 'rgba(97, 208, 149, 1)',
-  EASY: 'rgba(67, 151, 117, .1)',
-  EASY_PLUS: 'rgba(67, 151, 117, 1)',
-  MEDIUM: 'rgba(57, 160, 237, .1)',
+  VERY_EASY: 'rgba(67, 151, 117, .45)',
+  VERY_EASY_PLUS: 'rgba(67, 151, 117, 1)',
+  EASY: 'rgba(97, 208, 149, .45)',
+  EASY_PLUS: 'rgba(97, 208, 149, 1)',
+  MEDIUM: 'rgba(57, 160, 237, .45)',
   MEDIUM_PLUS: 'rgba(57, 160, 237, 1)',
-  HARD: 'rgba(255, 102, 99, .1)',
-  HARD_PLUS: 'rgba(255, 102, 99, 1)',
-  VERY_HARD: 'rgba(255, 134, 0, .1)',
+  HARD: 'rgba(252, 255, 108, .45)',
+  HARD_PLUS: 'rgba(252, 255, 108, 1)',
+  VERY_HARD: 'rgba(255, 134, 0, .45)',
   VERY_HARD_PLUS: 'rgba(255, 134, 0, 1)',
-  EXTREMELY_HARD: 'rgba(252, 255, 108, .1)',
-  EXTREMELY_HARD_PLUS: 'rgba(252, 255, 108, 1)',
+  EXTREMELY_HARD: 'rgba(255, 102, 99, .45)',
+  EXTREMELY_HARD_PLUS: 'rgba(255, 102, 99, 1)',
 }
 
 const Outer = styled.div`

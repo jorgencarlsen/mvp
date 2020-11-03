@@ -11,7 +11,7 @@ const SideBarContainer = styled.div`
   height: 100vh;
   background-color: ${({ theme }) => theme.base};
   -webkit-box-shadow: 4px 3px 14px 3px rgba(0,0,0,0.73);
-  box-shadow: 1px 2px 10px 2px rgba(0,0,0,0.53);
+  box-shadow: 1px 1px 6px 1px rgba(0,0,0,0.53);
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
