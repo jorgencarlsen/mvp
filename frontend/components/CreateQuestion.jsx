@@ -188,6 +188,25 @@ class CreateQuestion extends Component {
     timeSpent: 0,
   }
 
+  componentDidMount() {
+    if (this.props.question) {
+      const { title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent } = this.props.question;
+      this.setState({
+        title,
+        url,
+        algorithm,
+        dataStructure,
+        solved,
+        difficulty,
+        userDifficulty,
+        notes,
+        userSolution,
+        solution,
+        timeSpent
+      })
+    }
+  }
+
   handleChange = (e) => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
@@ -242,6 +261,9 @@ class CreateQuestion extends Component {
 
   render() {
     const { title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent } = this.state;
+    const editing = this.props.question || null;
+    const defaultDataStructure = dataStructures.filter(obj => dataStructure.indexOf(obj.value) !== -1);
+    console.log(defaultDataStructure);
 
     return (
       <Mutation
@@ -258,7 +280,8 @@ class CreateQuestion extends Component {
             }}
           >
             <div className='header'>
-              <h2>Add a Question</h2>
+              {editing && <h2>Edit Question</h2>}
+              {!editing && <h2>Add a Question</h2>}
               <label htmlFor='solved'>
                 <span className='margin-right'>Solved?</span>
                 <Toggle
@@ -297,6 +320,7 @@ class CreateQuestion extends Component {
                 <span className='margin-bottom'>Data Structures</span>
                 <Select
                   data={dataStructures}
+                  defaultValue={defaultDataStructure}
                   changeHandler={this.handleDataStructuresChange}
                   multi={true}
                 />

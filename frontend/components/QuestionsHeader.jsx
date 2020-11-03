@@ -35,14 +35,14 @@ align-items: center;
 const QuestionsHeader = () => (
   <Header>
     <Title>
-      <h2>Interview Questions</h2>
+      <h2>My Questions</h2>
     </Title>
     <ColumnsHeader>
       <ColumnHead>
         Title
         </ColumnHead>
       <ColumnHead>
-        Data Structure
+        Data Structures
         </ColumnHead>
       <ColumnHead>
         Solved

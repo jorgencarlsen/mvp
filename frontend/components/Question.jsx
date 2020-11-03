@@ -14,6 +14,8 @@ const Wrapper = styled.div`
   align-items: center;
   height: 30px;
   color: ${({ theme }) => theme.vibrantWhite};
+  border-top: 1px solid ${({ theme }) => theme.overlayLight};
+  padding-top: .5rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.base};
@@ -48,7 +50,7 @@ const Question = ({ question }) => {
   const { id, title, dataStructure, solved, difficulty, createdAt } = question;
 
   const solvedString = solved ? 'Y' : 'N';
-  const date = moment(createdAt).format("MM-DD-YYYY");
+  const date = moment(createdAt).format("MMM DD");
 
   const handleSelectQuestion = () => {
     Router.push({

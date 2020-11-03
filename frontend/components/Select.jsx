@@ -28,7 +28,8 @@ const customStyles = {
 
 }
 
-export default function AnimatedMulti({ data, changeHandler, multi }) {
+export default function AnimatedMulti({ data, changeHandler, multi, defaultValue }) {
+  console.log(defaultValue);
   return (
     <Select
       closeMenuOnSelect={false}
@@ -36,6 +37,7 @@ export default function AnimatedMulti({ data, changeHandler, multi }) {
       isMulti={multi}
       options={data}
       styles={customStyles}
+      defaultValue={defaultValue}
       className="react-select-container"
       classNamePrefix="react-select"
       onChange={changeHandler}
