@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import router from 'next/router';
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 import CreateQuestion from './CreateQuestion';
+import DifficultyMeter from './DifficultyMeter';
 
 const GET_QUESTION_BY_ID_QUERY = gql`
   query GET_QUESTION_BY_ID_QUERY ($id: Int!) {
@@ -23,6 +25,28 @@ const GET_QUESTION_BY_ID_QUERY = gql`
       updatedAt
     }
   }
+`;
+
+const Container = styled.div`
+  width: 900px;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.surface};
+  border-radius: 5px;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 4fr 4fr;
+`;
+
+const Header = styled.div`
+  color: ${({ theme }) => theme.vibrantWhite};
+`;
+
+const Difficulty = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 class QuestionDetails extends Component {
@@ -48,9 +72,18 @@ class QuestionDetails extends Component {
           if (this.state.editQuestion) return (<CreateQuestion question={data.question} />);
           const { id, title, difficulty, userDifficulty } = data.question;
           return (
-            <div>{title}
-              <button onClick={this.handleEditQuestion}>Edit Question</button>
-            </div>
+            <>
+              <Header>
+                <h2>{title}</h2>
+                <button onClick={this.handleEditQuestion}>Edit Question</button>
+              </Header>
+              <Container>
+                <Difficulty>
+                  <DifficultyMeter difficulty={difficulty} label={'Difficulty'} />
+                  <DifficultyMeter difficulty={userDifficulty} label={'Percieved Difficulty'} />
+                </Difficulty>
+              </Container>
+            </>
           );
         }}
       </Query >

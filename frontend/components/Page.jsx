@@ -39,6 +39,20 @@ injectGlobal`
     color: ${theme.required};
   }
 
+  button {
+    border: 0;
+    outline: 0;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    color: ${theme.vibrantWhite};
+    background-color: ${theme.blue};
+
+    &:hover {
+      opacity: .9;
+    }
+  }
+
   .react-toggle {
     touch-action: pan-x;
 
