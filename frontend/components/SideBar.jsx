@@ -59,6 +59,9 @@ const SideBar = () => {
       <Link href='/analytics'>
         <MenuItem>Analytics</MenuItem>
       </Link>
+      <Link href='/'>
+        <MenuItem>Add a Question</MenuItem>
+      </Link>
     </SideBarContainer>
   );
 };

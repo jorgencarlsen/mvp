@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
+import Router from 'next/router';
 import { dataStructureMap } from '../lib/dataStructures';
+import { difficultyMap } from '../lib/difficulties';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.surface};
@@ -10,6 +13,7 @@ const Wrapper = styled.div`
   grid-template-rows: 1fr;
   align-items: center;
   height: 30px;
+  color: ${({ theme }) => theme.vibrantWhite};
 
   &:hover {
     background-color: ${({ theme }) => theme.base};
@@ -25,21 +29,45 @@ const Item = styled.div`
 `;
 
 const DataSpan = styled.span`
+  background-color: ${({ theme }) => theme.blue};
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-right: 5px;
+  color: ${({ theme }) => theme.vibrantWhite};
+`;
 
+const SolvedSpan = styled.span`
+  background-color: ${({ theme, solved }) => solved ? theme.seaGreen : theme.required};
+  padding: 1px 4px;
+  color: ${({ theme }) => theme.base};
+  border-radius: 3px;
+  margin-right: 5px;
 `;
 
 const Question = ({ question }) => {
-  const { title, dataStructure, solved, difficulty, createdAt } = question;
+  const { id, title, dataStructure, solved, difficulty, createdAt } = question;
 
+  const solvedString = solved ? 'Y' : 'N';
+  const date = moment(createdAt).format("MM-DD-YYYY");
 
+  const handleSelectQuestion = () => {
+    Router.push({
+      pathname: '/question',
+      query: { id },
+    });
+  }
 
   return (
-    <Wrapper>
+    <Wrapper onClick={handleSelectQuestion}>
       <Item>{title}</Item>
-      <Item>{dataStructure.map(data => `${dataStructureMap[data]} `)}</Item>
-      <Item>{solved}</Item>
-      <Item>{difficulty}</Item>
-      <Item>{createdAt}</Item>
+      <Item>
+        {dataStructure.map(data => (
+          <DataSpan key={Math.random() * 10}>{`${dataStructureMap[data]} `}</DataSpan>
+        ))}
+      </Item>
+      <Item>{<SolvedSpan solved={solved}>{`${solvedString} `}</SolvedSpan>}</Item>
+      <Item>{difficultyMap[difficulty]}</Item>
+      <Item>{date}</Item>
     </Wrapper>
   )
 };

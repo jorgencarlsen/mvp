@@ -24,4 +24,14 @@ const difficulties = [{
 }
 ];
 
+const difficultyMap = {
+  VERY_EASY: 'Very Easy',
+  EASY: 'Easy',
+  MEDUIM: 'Medium',
+  HARD: 'Hard',
+  VERY_HARD: 'Very Hard',
+  EXTREMELY_HARD: 'Extremely Hard',
+}
+
 export default difficulties;
+export { difficultyMap };

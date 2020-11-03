@@ -40,12 +40,11 @@ const Questions = () => (
   <Wrapper>
     <Query query={ALL_QUESTIONS_QUERY}>
       {({ data: { questions } }) => {
-        console.log(questions);
         return (
           <>
             <QuestionsHeader />
             <QuestionList>
-              {questions.map(question => <Question question={question} />)}
+              {questions.map(question => <Question key={question.id} question={question} />)}
             </QuestionList>
           </>
         );
