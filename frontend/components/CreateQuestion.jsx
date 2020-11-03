@@ -262,8 +262,22 @@ class CreateQuestion extends Component {
   render() {
     const { title, url, algorithm, dataStructure, solved, difficulty, userDifficulty, notes, userSolution, solution, timeSpent } = this.state;
     const editing = this.props.question || null;
-    const defaultDataStructure = dataStructures.filter(obj => dataStructure.indexOf(obj.value) !== -1);
-    console.log(defaultDataStructure);
+
+    const getDefaults = (selectOptions, options) => {
+      if (options === null) return null;
+      return selectOptions.filter(obj => {
+        if (typeof options === 'string') {
+          return options === obj.value;
+        }
+        return options.indexOf(obj.value) !== -1;
+      });
+    }
+
+
+    const dataStructureDefaults = getDefaults(dataStructures, dataStructure);
+    const difficultyDefaults = getDefaults(difficulties, difficulty);
+    const userDifficultyDefaults = getDefaults(difficulties, userDifficulty);
+    const algorithmDefaults = getDefaults(algorithms, algorithm);
 
     return (
       <Mutation
@@ -320,7 +334,7 @@ class CreateQuestion extends Component {
                 <span className='margin-bottom'>Data Structures</span>
                 <Select
                   data={dataStructures}
-                  defaultValue={defaultDataStructure}
+                  value={dataStructureDefaults}
                   changeHandler={this.handleDataStructuresChange}
                   multi={true}
                 />
@@ -329,6 +343,7 @@ class CreateQuestion extends Component {
                 <span className='margin-bottom'>Algorithm</span>
                 <Select
                   data={algorithms}
+                  value={algorithmDefaults}
                   changeHandler={this.handleAlgorithmChange}
                   multi={true}
                 />
@@ -337,6 +352,7 @@ class CreateQuestion extends Component {
                 <span className='margin-bottom'>Difficulty</span>
                 <Select
                   data={difficulties}
+                  value={difficultyDefaults}
                   changeHandler={this.handleDifficultyChange}
                   multi={false}
                 />
@@ -345,6 +361,7 @@ class CreateQuestion extends Component {
                 <span className='margin-bottom'>Percieved Difficulty</span>
                 <Select
                   data={difficulties}
+                  value={userDifficultyDefaults}
                   changeHandler={this.handleUserDifficultyChange}
                   multi={false}
                 />
