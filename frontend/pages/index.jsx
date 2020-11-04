@@ -1,8 +1,8 @@
 import React from 'react';
-import CreateQuestion from '../components/CreateQuestion';
+import Questions from '../components/Questions';
 
 const Home = () => (
-  <CreateQuestion />
+  <Questions />
 );
 
 export default Home;

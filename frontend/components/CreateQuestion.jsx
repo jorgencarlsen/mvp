@@ -9,6 +9,7 @@ import dataStructures from '../lib/dataStructures';
 import algorithms from '../lib/algorithms';
 import difficulties from '../lib/difficulties';
 import { GET_QUESTION_BY_ID_QUERY } from './QuestionDetails';
+import { ALL_QUESTIONS_QUERY } from './Questions';
 
 const CREATE_QUESTION_MUTATION = gql`
   mutation CREATE_QUESTION_MUTATION (
@@ -321,7 +322,7 @@ class CreateQuestion extends Component {
       <Mutation
         mutation={this.props.question ? UPDATE_QUESTION_MUTATION : CREATE_QUESTION_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: GET_QUESTION_BY_ID_QUERY, variables: { id: this.state.id } }]}
+        refetchQueries={this.props.question ? [{ query: GET_QUESTION_BY_ID_QUERY, variables: { id: this.state.id } }] : [{ query: ALL_QUESTIONS_QUERY }]}
       >
         {(upsertQuestion, { loading, error }) => (
           <Form

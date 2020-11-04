@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import Analytics from '../components/Analytics';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.surface};
 `;
 
-const Analytics = () => (
+const AnalyticsPage = () => (
   <Wrapper>
-    <div>I am the Analytics page</div>
+    <Analytics />
   </Wrapper>
 );
 
-export default Analytics;
+export default AnalyticsPage;

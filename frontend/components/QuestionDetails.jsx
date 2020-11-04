@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import CreateQuestion from './CreateQuestion';
 import DifficultyMeter from './DifficultyMeter';
 import DataStructureTag from './DataStructureTag';
-import AlgorithmTag from './DataStructureTag';
+import AlgorithmTag from './AlgorithmTag';
 
 const GET_QUESTION_BY_ID_QUERY = gql`
   query GET_QUESTION_BY_ID_QUERY ($id: Int!) {
@@ -72,10 +72,26 @@ const Difficulty = styled.div`
 `;
 
 const Controls = styled.div`
-display: flex;
-flex-flow: row nowrap;
-justify-content: flex-end;
-align-items: flex-start;
+display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+// display: flex;
+// flex-flow: row nowrap;
+// justify-content: flex-end;
+// align-items: flex-start;
+
+a {
+  button {
+    color: ${({ theme }) => theme.base};
+    background-color: ${({ theme }) => theme.seaGreen};
+    margin-right: 1rem;
+  }
+}
+
+.solution {
+  margin-right: 1rem;
+  background-color: ${({ theme }) => theme.required};
+}
 
   button {
     max-width: 100px;
@@ -131,7 +147,8 @@ class QuestionDetails extends Component {
           if (error) return <div>Error: {error}</div>
           if (loading) return <div>Loading...</div>
           if (this.state.editQuestion) return (<CreateQuestion question={data.question} />);
-          const { id, title, difficulty, userDifficulty, dataStructure, algorithm, notes } = data.question;
+          const { id, title, url, difficulty, userDifficulty, dataStructure, algorithm, notes, solution, userSolution } = data.question;
+
           return (
             <Wrapper>
               <Header>
@@ -145,6 +162,15 @@ class QuestionDetails extends Component {
                   <DifficultyMeter difficulty={userDifficulty} label={'Percieved Difficulty'} />
                 </Difficulty>
                 <Controls>
+                  {url && <a href={url}>
+                    <button>Go to Problem</button>
+                  </a>}
+                  {solution && <a href={solution}>
+                    <button className='solution'>Solution</button>
+                  </a>}
+                  {userSolution && <a href={userSolution}>
+                    <button className='solution'>My Solution</button>
+                  </a>}
                   <button onClick={this.handleEditQuestion}>Edit Question</button>
                 </Controls>
                 <DataStructureContainer>

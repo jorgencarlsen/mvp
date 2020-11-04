@@ -51,7 +51,9 @@ const SideBar = () => {
   return (
     <SideBarContainer>
       <Title>
-        <h1>Prep Track</h1>
+        <Link href='/'>
+          <h1>Prep Track</h1>
+        </Link>
       </Title>
       <Link href='/questions'>
         <MenuItem>Questions</MenuItem>
@@ -59,7 +61,7 @@ const SideBar = () => {
       <Link href='/analytics'>
         <MenuItem>Analytics</MenuItem>
       </Link>
-      <Link href='/'>
+      <Link href='/createQuestion'>
         <MenuItem>Add a Question</MenuItem>
       </Link>
     </SideBarContainer>
